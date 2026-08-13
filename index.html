@@ -84,7 +84,7 @@
       left: 150px;
     }
 
-    /* Pulse Loader */
+    /* Heart Loader */
     .loader {
       display: none;
       width: 50px;
@@ -106,8 +106,7 @@
 
   <div class="card" id="questionCard">
     <div class="gif-container">
-      <!-- GIF 1: Peach & Goma Cats -->
-      <img id="mainGif" src="https://media.tenor.com/On7jhS3143IAAAAC/peach-goma.gif" alt="Cute Cats">
+      <img id="mainGif" src="gif1.gif" alt="Cute Cats">
     </div>
     <h1 id="title">Do you love me?</h1>
     <div class="btn-group" id="btnGroup">
@@ -126,11 +125,7 @@
     const btnGroup = document.getElementById('btnGroup');
     const heartLoader = document.getElementById('heartLoader');
 
-    // GIF URLs
-    const gif1 = "https://media.tenor.com/On7jhS3143IAAAAC/peach-goma.gif";
-    const gif2 = "https://media.tenor.com/A6S4tL3aTxsAAAAC/bunny-love.gif";
-
-    // Move "No" button randomly on hover
+    // Move "No" button on hover
     noBtn.addEventListener('mouseover', () => {
       const cardRect = questionContainer.getBoundingClientRect();
       const btnRect = noBtn.getBoundingClientRect();
@@ -151,14 +146,12 @@
       mainGif.style.display = 'none';
       title.style.display = 'none';
       
-      // Show heart animation
       heartLoader.style.display = 'block';
 
-      // After 3 seconds, show GIF 2 and success message
       setTimeout(() => {
         heartLoader.style.display = 'none';
         
-        mainGif.src = gif2;
+        mainGif.src = 'gif2.gif';
         mainGif.style.display = 'block';
         
         title.innerText = "I knew it ❤️!";
