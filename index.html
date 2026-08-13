@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>Do you love me?</title>
+
   <style>
     * {
       box-sizing: border-box;
@@ -12,152 +14,226 @@
     }
 
     body {
-      display: flex;
-      justify-content: center;
-      align-items: center;
       min-height: 100vh;
-      background-color: #ffe6eb;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
-
-    .card {
-      background: #fff;
-      padding: 30px;
-      border-radius: 20px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-      text-align: center;
-      width: 320px;
-      position: relative;
-    }
-
-    .gif-container {
-      width: 100%;
-      height: 200px;
       display: flex;
       justify-content: center;
       align-items: center;
-      margin-bottom: 15px;
+      background: #fff8fa;
+      font-family: Arial, sans-serif;
+      overflow: hidden;
     }
 
-    .gif-container img {
-      max-width: 100%;
-      max-height: 100%;
-      border-radius: 12px;
+    .container {
+      width: 100%;
+      max-width: 500px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 25px;
+    }
+
+    .teddy {
+      width: 260px;
+      max-width: 80vw;
+      height: auto;
+      border-radius: 20px;
+      margin-bottom: 25px;
       object-fit: contain;
     }
 
+    .video {
+      width: 260px;
+      max-width: 80vw;
+      border-radius: 20px;
+      margin-bottom: 25px;
+      display: none;
+    }
+
     h1 {
-      color: #333;
-      font-size: 24px;
+      font-size: 30px;
+      color: #5b4146;
       margin-bottom: 25px;
     }
 
-    .btn-group {
-      position: relative;
-      width: 100%;
-      height: 50px;
+    .buttons {
       display: flex;
+      gap: 18px;
       justify-content: center;
-      gap: 20px;
+      align-items: center;
     }
 
     button {
-      padding: 10px 25px;
-      font-size: 16px;
-      font-weight: bold;
       border: none;
-      border-radius: 20px;
+      padding: 13px 28px;
+      border-radius: 30px;
+      font-size: 18px;
       cursor: pointer;
       transition: transform 0.2s ease;
     }
 
     #yesBtn {
-      background-color: #ff4d6d;
+      background: #ff8fab;
       color: white;
-      box-shadow: 0 4px 10px rgba(255, 77, 109, 0.3);
     }
 
     #noBtn {
-      background-color: #ff758f;
-      color: white;
-      position: absolute;
-      left: 150px;
+      background: #eee;
+      color: #555;
     }
 
-    /* Heart Loader */
-    .loader {
+    button:hover {
+      transform: scale(1.08);
+    }
+
+    .message {
       display: none;
-      width: 50px;
-      height: 50px;
-      background-color: #ff4d6d;
-      margin: 20px auto;
-      clip-path: path('M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z');
-      transform-origin: center;
-      animation: pulse 1s infinite alternate;
+      font-size: 25px;
+      color: #ff6f91;
+      margin-top: 20px;
+      line-height: 1.5;
     }
 
-    @keyframes pulse {
-      0% { transform: scale(0.8); }
-      100% { transform: scale(1.2); }
+    .heart {
+      position: fixed;
+      font-size: 25px;
+      animation: float 3s linear forwards;
+      pointer-events: none;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+
+      100% {
+        transform: translateY(-100vh) scale(1.5);
+        opacity: 0;
+      }
     }
   </style>
 </head>
+
 <body>
 
-  <div class="card" id="questionCard">
-    <div class="gif-container">
-      <img id="mainGif" src="gif1.gif" alt="Cute Cats">
+  <div class="container">
+
+    <!-- NEW TEDDY IMAGE -->
+    <img
+      id="teddyImage"
+      class="teddy"
+      src="teddy1.jpeg"
+      alt="Cute teddy"
+    >
+
+    <!-- NEW TEDDY VIDEO -->
+    <video
+      id="teddyVideo"
+      class="video"
+      autoplay
+      muted
+      loop
+      playsinline
+    >
+      <source src="teddy2.mp4" type="video/mp4">
+    </video>
+
+    <h1 id="question">Do you love me? 💗</h1>
+
+    <div class="buttons" id="buttons">
+      <button id="yesBtn">Yes 💕</button>
+      <button id="noBtn">No 😭</button>
     </div>
-    <h1 id="title">Do you love me?</h1>
-    <div class="btn-group" id="btnGroup">
-      <button id="yesBtn">Yes</button>
-      <button id="noBtn">No</button>
+
+    <div class="message" id="message">
+      I knew it! 🥹💗<br>
+      You are the cutest person ever! 🧸💕
     </div>
-    <div id="heartLoader" class="loader"></div>
+
   </div>
 
   <script>
-    const questionContainer = document.getElementById('questionCard');
-    const noBtn = document.getElementById('noBtn');
-    const yesBtn = document.getElementById('yesBtn');
-    const mainGif = document.getElementById('mainGif');
-    const title = document.getElementById('title');
-    const btnGroup = document.getElementById('btnGroup');
-    const heartLoader = document.getElementById('heartLoader');
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
 
-    // Move "No" button on hover
-    noBtn.addEventListener('mouseover', () => {
-      const cardRect = questionContainer.getBoundingClientRect();
-      const btnRect = noBtn.getBoundingClientRect();
+    const question = document.getElementById("question");
+    const buttons = document.getElementById("buttons");
+    const message = document.getElementById("message");
 
-      const maxX = cardRect.width - btnRect.width - 20;
-      const maxY = cardRect.height - btnRect.height - 20;
+    const teddyImage = document.getElementById("teddyImage");
+    const teddyVideo = document.getElementById("teddyVideo");
 
-      const newX = Math.floor(Math.random() * maxX);
-      const newY = Math.floor(Math.random() * maxY);
+    // YES BUTTON
+    yesBtn.addEventListener("click", () => {
 
-      noBtn.style.left = newX + 'px';
-      noBtn.style.top = newY + 'px';
+      question.innerHTML = "YAYYY! I LOVE YOU TOO! 💗🥹";
+
+      buttons.style.display = "none";
+
+      teddyImage.style.display = "none";
+      teddyVideo.style.display = "block";
+
+      message.style.display = "block";
+
+      createHearts();
+
+      teddyVideo.play().catch(() => {});
     });
 
-    // Handle "Yes" click
-    yesBtn.addEventListener('click', () => {
-      btnGroup.style.display = 'none';
-      mainGif.style.display = 'none';
-      title.style.display = 'none';
-      
-      heartLoader.style.display = 'block';
 
-      setTimeout(() => {
-        heartLoader.style.display = 'none';
-        
-        mainGif.src = 'gif2.gif';
-        mainGif.style.display = 'block';
-        
-        title.innerText = "I knew it ❤️!";
-        title.style.display = 'block';
-      }, 3000);
-    });
+    // NO BUTTON
+    noBtn.addEventListener("mouseover", moveNoButton);
+
+    noBtn.addEventListener("touchstart", moveNoButton);
+
+    function moveNoButton() {
+
+      const maxX = window.innerWidth - noBtn.offsetWidth - 20;
+      const maxY = window.innerHeight - noBtn.offsetHeight - 20;
+
+      const x = Math.random() * maxX;
+      const y = Math.random() * maxY;
+
+      noBtn.style.position = "fixed";
+      noBtn.style.left = x + "px";
+      noBtn.style.top = y + "px";
+    }
+
+
+    // FLOATING HEARTS
+    function createHearts() {
+
+      for (let i = 0; i < 30; i++) {
+
+        setTimeout(() => {
+
+          const heart = document.createElement("div");
+
+          heart.className = "heart";
+          heart.innerHTML = "💗";
+
+          heart.style.left =
+            Math.random() * window.innerWidth + "px";
+
+          heart.style.top =
+            window.innerHeight + "px";
+
+          heart.style.animationDuration =
+            (2 + Math.random() * 3) + "s";
+
+          document.body.appendChild(heart);
+
+          setTimeout(() => {
+            heart.remove();
+          }, 5000);
+
+        }, i * 100);
+      }
+    }
   </script>
+
 </body>
 </html>
